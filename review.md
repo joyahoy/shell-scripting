@@ -1,3 +1,11 @@
+***first.sh***
+```bash
+#!/bin/sh
+# This is a comment!
+echo Hello World        # This is a comment, too!
+```
+**The first line tells Unix that the file is to be executed by /bin/sh.** This is the standard location of the Bourne shell on just about every Unix system. If you're using GNU/Linux, /bin/sh is normally a symbolic link to bash (or, more recently, dash).
+
 ***export*** 命令是用来将 shell 环境变量导出到子进程中的。在 shell 中定义的变量，默认只对当前 shell 会话有效。如果你希望这个变量在当前 shell 会话及其启动的所有子进程（如脚本或其他程序）中都有效，就需要使用 export。
 基本用法：
 export VAR_NAME=value
@@ -7,11 +15,11 @@ export VAR_NAME=value
 
 在 shell 中，如果你引用了一个不存在的变量（即未定义的变量），通常它的值会被视为空字符串，且不会报错或显示任何信息。这是 shell 中的一种标准行为，目的是保持脚本的健壮性。
 
-使用 source 或 . 执行脚本时，脚本和当前 shell 在同一个进程中运行，脚本修改的变量会影响当前 shell。
+**使用 source 或 . 执行脚本时**，脚本和当前 shell 在同一个进程中运行，脚本修改的变量会影响当前 shell。
 如果你使用普通的 ./myvar.sh 执行脚本，那么脚本将在子进程中执行，子进程的环境变量不会影响到当前 shell，除非你使用 export 来显式地传递环境变量。
 
-However, ", $, `, and \ are still interpreted by the shell, even when they're in double quotes.
-The backslash (\) character is used to mark these special characters so that they are not interpreted by the shell, but passed on to the command being run (for example, echo).
+However,**"**, **$**, **`**, and \ are still interpreted by the shell, even when they're in double quot
+**The backslash (\\) character is used to mark these special characters so that they are not interpreted by the shell**, but passed on to the command being run (for example, echo).
 ### FOR LOOP
 ```bash
 #!/bin/sh
@@ -33,3 +41,21 @@ Looping ... i is set to goodbye
 ### WHILE LOOP<br> 
 The colon (:) always evaluates to true<br>
 mkdir rc{0,1,2,3,4,5,6,S}.d<br>
+
+### TEST [
+This means that '[' is actually a program, just like ls and other programs, so it must be surrounded by spaces.<br>
+Note: Some shells also accept "==" for string comparison; this is not portable, a single "=" should be used for strings, or "-eq" for integers.<br>
+I've highlighted the mandatory spaces with the word ***'SPACE'*** - replace 'SPACE' with an actual space; if there isn't a space there, it won't work:
+```bash
+if SPACE [ SPACE "$foo" SPACE = SPACE "bar" SPACE ]
+```
+Test is most often invoked indirectly via the if and while statements.
+```bash
+if [ ... ]
+then
+  # if-code
+else
+  # else-code
+fi
+```
+
